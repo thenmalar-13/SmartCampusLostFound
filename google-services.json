@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "206765215263",
+    "project_id": "smartcampuslostfound-5aa0e",
+    "storage_bucket": "smartcampuslostfound-5aa0e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206765215263:android:5709a1f7b0e23e7dc14f2a",
+        "android_client_info": {
+          "package_name": "com.example.smartcampuslostfound"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEdzePfg4-MOJ35MNkJNmt35jMGd2JERA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
