@@ -96,8 +96,8 @@ public class GeminiMatchEngine {
                 }
 
                 matchResult = new MatchResult(
-                        lostItem != null ? lostItem.getId() : "",
-                        foundItem != null ? foundItem.getId() : "",
+                        lostItem != null ? lostItem.getItemId() : "",
+                        foundItem != null ? foundItem.getItemId(): "",
                         matchPercentage,
                         reasonList
                 );
@@ -106,8 +106,8 @@ public class GeminiMatchEngine {
                 e.printStackTrace();
                 // Return 0% match on error so false dialogs NEVER pop up
                 matchResult = new MatchResult(
-                        lostItem != null ? lostItem.getId() : "",
-                        foundItem != null ? foundItem.getId() : "",
+                        lostItem != null ? lostItem.getItemId() : "",
+                        foundItem != null ? foundItem.getItemId() : "",
                         0,
                         new ArrayList<>()
                 );

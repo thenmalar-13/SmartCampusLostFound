@@ -84,8 +84,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             holder.txtAiExtracted.setVisibility(View.GONE);
         }
 
+        // Determine status safely from model.getStatus()
+        String itemStatus = model.getStatus() != null ? model.getStatus() : model.getItemType();
+
         // Set status badge visual styling
-        if ("FOUND".equalsIgnoreCase(model.getItemType())) {
+        if ("FOUND".equalsIgnoreCase(itemStatus)) {
             holder.txtStatusChip.setText("FOUND");
             holder.txtStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_found));
         } else {
@@ -114,8 +117,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             holder.itemImg.setVisibility(View.GONE);
         }
 
-        // SECURE CONTACT ACTION: Routes through MatchDialog verification flow
-        // SECURE CONTACT ACTION: Only Found items trigger ownership verification. Lost items dial directly.
+        // SECURE CONTACT ACTION: Only triggers verification if it's a FOUND item AND explicitly marked as sensitive
         holder.btnContact.setOnClickListener(v -> {
             String contactNum = model.getContactNumber();
             if (contactNum == null || contactNum.trim().isEmpty()) {
@@ -123,13 +125,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 return;
             }
 
-            // Check if this is a FOUND item holding private verification details
-            if ("FOUND".equalsIgnoreCase(model.getItemType())) {
-                // Trigger verification dialog only for FOUND items
+            boolean isFound = "FOUND".equalsIgnoreCase(itemStatus);
+            boolean isSensitive = model.isSensitive();
+
+            // Trigger verification dialog ONLY if it's both Found and Sensitive
+            if (isFound && isSensitive) {
                 MatchResult dummyResult = new MatchResult();
                 dummyResult.setMatchPercentage(100);
                 ArrayList<String> reasons = new ArrayList<>();
-                reasons.add("Direct Contact Request for Found Item");
+                reasons.add("Secure Verification Required for Sensitive Found Item");
                 dummyResult.setMatchReasons(reasons);
 
                 MatchDialog.showMatchDetails(
@@ -139,7 +143,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                         model.getPrivateDetails()
                 );
             } else {
-                // If it's a LOST item, open dialer directly (no secret verification needed)
+                // Otherwise (Lost items or normal non-sensitive notes/found items), dial directly
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + contactNum));
                 context.startActivity(intent);
@@ -152,10 +156,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                     .setTitle("Mark as Resolved")
                     .setMessage("Remove this item listing permanently?")
                     .setPositiveButton("Delete", (dialog, which) -> {
-                        if (model.getId() != null && !model.getId().isEmpty()) {
+                        if (model.getItemId() != null && !model.getItemId().isEmpty()) {
                             DatabaseReference itemRef = FirebaseDatabase.getInstance("https://smartcampuslostfound-5aa0e-default-rtdb.asia-southeast1.firebasedatabase.app")
                                     .getReference("Items")
-                                    .child(model.getId());
+                                    .child(model.getItemId());
 
                             itemRef.removeValue()
                                     .addOnSuccessListener(aVoid ->

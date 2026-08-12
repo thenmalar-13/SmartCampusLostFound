@@ -1,57 +1,46 @@
 package com.example.smartcampuslostfound;
 
 public class ItemModel {
-    private String id;
+    private String itemId;
     private String name;
-    private String description;
     private String location;
-    private String imageUrl;
     private String contactNumber;
-    private String itemType; // "LOST" or "FOUND"
-    private String userId;
-    private ExtractedAttributes attributes;
-    private String privateDetails; // Private field for Feature 5 & 6 (Hidden from public feed)
+    private String description;
+    private String privateDetails;
+    private String status;
     private boolean isSensitive;
+    private ExtractedAttributes attributes;
+    private String itemType;
+    private String imageUrl; // Added for image data support
 
-    public ItemModel() { }
-
-    public ItemModel(String id, String name, String description, String location, String itemType, String contactNumber, ExtractedAttributes attributes) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.itemType = itemType;
-        this.contactNumber = contactNumber;
-        this.attributes = attributes != null ? attributes : new ExtractedAttributes();
-        this.imageUrl = "";
-        this.userId = "anonymous_user";
-        this.privateDetails = "";
-        this.isSensitive = false;
+    // Required empty constructor for Firebase
+    public ItemModel() {
     }
 
     // Getters
-    public String getId() { return id; }
+    public String getItemId() { return itemId; }
+    public String getId() { return itemId; } // Alias to prevent any getId() errors
     public String getName() { return name; }
-    public String getDescription() { return description; }
     public String getLocation() { return location; }
-    public String getImageUrl() { return imageUrl; }
     public String getContactNumber() { return contactNumber; }
-    public String getItemType() { return itemType; }
-    public String getUserId() { return userId; }
-    public ExtractedAttributes getAttributes() { return attributes; }
+    public String getDescription() { return description; }
     public String getPrivateDetails() { return privateDetails; }
+    public String getStatus() { return status; }
     public boolean isSensitive() { return isSensitive; }
+    public ExtractedAttributes getAttributes() { return attributes; }
+    public String getItemType() { return itemType; }
+    public String getImageUrl() { return imageUrl; } // Added getter
 
     // Setters
-    public void setId(String id) { this.id = id; }
+    public void setItemId(String itemId) { this.itemId = itemId; }
     public void setName(String name) { this.name = name; }
-    public void setDescription(String description) { this.description = description; }
     public void setLocation(String location) { this.location = location; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
-    public void setItemType(String itemType) { this.itemType = itemType; }
-    public void setUserId(String userId) { this.userId = userId; }
-    public void setAttributes(ExtractedAttributes attributes) { this.attributes = attributes; }
+    public void setDescription(String description) { this.description = description; }
     public void setPrivateDetails(String privateDetails) { this.privateDetails = privateDetails; }
+    public void setStatus(String status) { this.status = status; }
     public void setSensitive(boolean sensitive) { isSensitive = sensitive; }
+    public void setAttributes(ExtractedAttributes attributes) { this.attributes = attributes; }
+    public void setItemType(String itemType) { this.itemType = itemType; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; } // Added setter
 }

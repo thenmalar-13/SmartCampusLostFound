@@ -235,12 +235,21 @@
                 android:lines="2" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- SENSITIVE ITEM CHECKBOX (Added here) -->
+        <CheckBox
+            android:id="@+id/checkboxSensitive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Mark as Sensitive Item (e.g. Phone, Laptop, Wallet, Jewelry)"
+            android:textColor="@color/text_primary" />
+
         <!-- Submit Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmitReport"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/primary"
             android:text="Post Item Listing"
             android:textSize="16sp"

@@ -24,8 +24,9 @@
                 android:id="@+id/itemImg"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_gallery" />
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@android:color/black" /> <!-- Optional dark background for letterboxing -->
 
             <TextView
                 android:id="@+id/txtStatusChip"
